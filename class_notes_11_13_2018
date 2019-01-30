@@ -1,0 +1,69 @@
+#Andrew DeFran
+#CSCI 160
+#class notes 11/13/2018
+
+#continuation of 11/6/2018 notes
+
+#chainlink function
+def is_chain_link(sentence):
+	#lower case the sentence
+	sentence = sentence.lower()
+	#find the first space
+	space_index = sentence.find(" ", 0)
+	print("First space index is", space_index)
+	while(space_index != -1):
+		#print("Space found at index", space_index)
+		#are the two words chained
+		if(sentence[space_index-2:space_index] != sentence[space_index+1:space_index+3]):
+			return False
+		#find the next space
+		space_index = sentence.find(" ", space_index + 1)
+	return True
+		
+
+s = "Hello lorax axiom omitted edamam memorized education"
+s2 = "thereisnospacehere"
+#print("is",s,"a chainlink sentence?\n",is_chain_link(s))
+
+'''
+1. RÃ¶varsprÃ¥ket => double every consonant and 
+place an occurrence of "o" in between.
+
+2. For example, translate("this is fun") should 
+return the string "tothohisos isos fofunon".
+'''
+
+def is_vowel(letter):
+	letter = letter[0].lower()
+	vowels = "aeiou"
+	if(letter in vowels):
+		return True
+	else:
+		return False
+
+def translate(phrase):
+	robbers = ""
+	#for letter in string
+	for index in range(0, len(phrase)):
+		if(phrase[index].isalpha() and not is_vowel(phrase[index])):
+			#we have a consonant
+			robbers += phrase[index] + "o" + phrase[index]
+		else:
+			robbers += phrase[index]
+	return robbers		
+s = "this is fun. Why doesn't everybody love it?"
+print(translate(s))
+
+
+def longest_word():
+	longest_word = ""
+	#open the file
+	file = open("words.txt")
+	for word in file:
+		word = word.strip()
+		if(len(word) > len(longest_word)):
+			longest_word = word
+	return longest_word
+
+longest = longest_word()
+print("The longest word is '", longest, "' with", len(longest), "characters")
